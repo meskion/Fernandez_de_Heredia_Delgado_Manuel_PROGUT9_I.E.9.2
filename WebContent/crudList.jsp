@@ -78,6 +78,7 @@ function hideForm(id){
 				<tr class="hidden" id="FORM<c:out value='${socio.nSocio}' />">
 				<form action="update" method="post">
 				<td><c:out value="${socio.nSocio}" /></td>
+				<input type="hidden" name="nSocio" value="${socio.nSocio}" />
 				<td><input type="text" value="<c:out value='${socio.nombre}' />" name="nombre" ></td>
 				<td><input type="text" value="<c:out value='${socio.edad}' />" name="edad"></td>
 				<td><input type="text" value="<c:out value='${socio.estatura}' />" name="estatura"></td>

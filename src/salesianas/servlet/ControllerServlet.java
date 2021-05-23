@@ -134,6 +134,7 @@ public class ControllerServlet extends HttpServlet {
 		String error = "";
 		try {
 			Integer nSocio = Integer.parseInt(request.getParameter("nSocio"));
+			System.out.println("id: "+nSocio);
 			String nombre = request.getParameter("nombre");
 			Integer edad = Integer.parseInt(request.getParameter("edad"));
 			Integer estatura = Integer.parseInt(request.getParameter("estatura"));
@@ -143,6 +144,7 @@ public class ControllerServlet extends HttpServlet {
 			dao.update(s);
 		} catch (NumberFormatException | SQLException e) {
 			error = "ERROR: Datos introducidos no validos";
+			e.printStackTrace();
 		}
 		response.sendRedirect("list?error=" + error);
 	}
