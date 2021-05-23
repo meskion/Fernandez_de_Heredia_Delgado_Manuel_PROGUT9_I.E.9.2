@@ -131,15 +131,20 @@ public class ControllerServlet extends HttpServlet {
 	 */
 	private void updateSocio(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException {
-		Integer nSocio = Integer.parseInt(request.getParameter("nSocio"));
-		String nombre = request.getParameter("nombre");
-		Integer edad = Integer.parseInt(request.getParameter("edad"));
-		Integer estatura = Integer.parseInt(request.getParameter("estatura"));
-		String localidad = request.getParameter("localidad");
+		String error = "";
+		try {
+			Integer nSocio = Integer.parseInt(request.getParameter("nSocio"));
+			String nombre = request.getParameter("nombre");
+			Integer edad = Integer.parseInt(request.getParameter("edad"));
+			Integer estatura = Integer.parseInt(request.getParameter("estatura"));
+			String localidad = request.getParameter("localidad");
 
-		Socio s = new Socio(nSocio, nombre, edad, estatura, localidad);
-		dao.update(s);
-		response.sendRedirect("list");
+			Socio s = new Socio(nSocio, nombre, edad, estatura, localidad);
+			dao.update(s);
+		} catch (NumberFormatException | SQLException e) {
+			error = "ERROR: Datos introducidos no validos";
+		}
+		response.sendRedirect("list?error=" + error);
 	}
 
 	/**
