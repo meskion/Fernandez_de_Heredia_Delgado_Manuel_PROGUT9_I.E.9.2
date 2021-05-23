@@ -1,0 +1,61 @@
+@charset "ISO-8859-1";
+
+body{
+   margin: 0;
+}
+table {
+	border-collapse: collapse;
+  	margin: 10px;
+    font-size: 1em;
+    min-width: 400px;
+    width: 100%;
+}
+
+td, th{
+	text-align: left;
+}
+.header{
+    background-color:  dodgerblue;
+    color: floralwhite;
+    position: sticky;
+    top: 0;
+    padding: 1rem;
+}
+h1{
+    text-align: center;
+}
+.error{
+    color: firebrick;
+    font-size: 1em;
+}
+
+button{
+    height: 2rem;
+    color: floralwhite;
+    width: 70%;
+    border-radius: 0;
+}
+.newButton{
+    background-color: rgb(59, 136, 57);
+  
+}
+
+
+.modButton{
+    background-color:  rgb(73, 146, 219);
+    
+}
+
+.delButton{
+    background-color: rgb(172, 51, 51);
+}
+
+.cancelButton{
+    background-color: darkorange;
+}
+
+
+
+.hidden{
+    display: none;
+}

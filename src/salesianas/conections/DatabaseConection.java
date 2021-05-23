@@ -6,14 +6,18 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class DatabaseConection {
-
+	/** Enlace a la base de datos*/
 	private static final String JDBC_URL = "jdbc:mysql://localhost:3306/sociosbaloncesto?autoReconnect=true&useSSL=false";
-
+	/** Instancia de la conexion*/
 	private static Connection instance = null;
-
+	
 	private DatabaseConection() {
 	}
-
+	/**
+	 * Conexión con la base de datos
+	 * @return 
+	 * @throws SQLException
+	 */
 	public static Connection getConnection() throws SQLException {
 		if (instance == null) {
 			try {

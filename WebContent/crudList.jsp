@@ -13,7 +13,7 @@
 </style>
 
 <script>
-
+//Script que muestra el formulario escondido para editar socios
 function showForm(id){
 	form = document.getElementById("FORM"+id);
 	display = document.getElementById("DISP"+id);
@@ -22,7 +22,7 @@ function showForm(id){
 	display.className = "hidden";
 
 }
-
+//Script que cancela una edición.
 function hideForm(id){
 	form = document.getElementById("FORM"+id);
 	display = document.getElementById("DISP"+id);
@@ -35,7 +35,7 @@ function hideForm(id){
 </script>
 
 <meta charset="ISO-8859-1">
-<title>Hey</title>
+<title>Socios Baloncesto</title>
 </head>
 <body>
 

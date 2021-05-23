@@ -12,10 +12,20 @@ import jakarta.servlet.http.HttpServletResponse;
 import salesianas.dao.DaoSocios;
 import salesianas.socio.Socio;
 
+/**
+ * Servlet que maneja las peticiones al servidor web
+ * 
+ * @author manuf
+ *
+ */
 public class ControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	/** Instancia del data access object */
 	private DaoSocios dao;
 
+	/**
+	 * Iniciailiza una instancia del servlet
+	 */
 	public void init() {
 		try {
 			dao = DaoSocios.getInstance();
@@ -26,11 +36,17 @@ public class ControllerServlet extends HttpServlet {
 
 	}
 
+	/**
+	 * Recibe peticiones al servidor
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
 	}
 
+	/**
+	 * Maneja las peticiones
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String action = request.getServletPath();
@@ -39,17 +55,11 @@ public class ControllerServlet extends HttpServlet {
 
 		try {
 			switch (action) {
-			case "/new":
-				showNewForm(request, response);
-				break;
 			case "/insert":
 				insertSocio(request, response);
 				break;
 			case "/delete":
 				deleteSocio(request, response);
-				break;
-			case "/edit":
-				showEditForm(request, response);
 				break;
 			case "/update":
 				updateSocio(request, response);
@@ -63,37 +73,36 @@ public class ControllerServlet extends HttpServlet {
 		}
 	}
 
+	/**
+	 * Metodo que redirige a la unica pagina con el CRUD. Accede a la lista de
+	 * socios a traves del DAO para mostrarla en el la pagina.
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws SQLException
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	private void listSocios(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
 		List<Socio> listSocio = dao.listAll();
 		request.setAttribute("listSocio", listSocio);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("crudList.jsp");
 		request.setAttribute("error", request.getParameter("error"));
-		
-		dispatcher.forward(request, response);
-		
-//		request.getRequestDispatcher("crudList.jsp").forward(request, response);
-	}
 
-	private void showNewForm(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("BookForm.jsp");
 		dispatcher.forward(request, response);
 	}
 
-	/*
-	 * Este metodo lo tendre que reutilizar quizas cuando edite filas de la bbdd
+	/**
+	 * recibe una peticion con los datos de un nuevo usuario a insertar y lo delega
+	 * al DAO
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws SQLException
+	 * @throws IOException
+	 * @throws ServletException
 	 */
-	private void showEditForm(HttpServletRequest request, HttpServletResponse response)
-			throws SQLException, ServletException, IOException {
-		int id = Integer.parseInt(request.getParameter("id"));
-		Socio existingBook = dao.getSocio(id);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("BookForm.jsp");
-		request.setAttribute("book", existingBook);
-		dispatcher.forward(request, response);
-
-	}
-
 	private void insertSocio(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
 		String error = "";
@@ -112,6 +121,14 @@ public class ControllerServlet extends HttpServlet {
 		response.sendRedirect("list?error=" + error);
 	}
 
+	/**
+	 * Recibe una peticion con datos de un socio a actualizar y lo delega al DAO
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws SQLException
+	 * @throws IOException
+	 */
 	private void updateSocio(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException {
 		Integer nSocio = Integer.parseInt(request.getParameter("nSocio"));
@@ -125,6 +142,14 @@ public class ControllerServlet extends HttpServlet {
 		response.sendRedirect("list");
 	}
 
+	/**
+	 * Recibe el codigo de un socio y llama al DAO para que lo elimine.
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws SQLException
+	 * @throws IOException
+	 */
 	private void deleteSocio(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
